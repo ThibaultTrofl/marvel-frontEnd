@@ -1,0 +1,102 @@
+.caracter-box {
+  padding: 10% 0;
+  height: 100%;
+  /* background-color: white; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  gap: 2vw;
+}
+
+/* ------CardCaracter */
+.blur {
+  filter: blur(8px);
+  pointer-events: none;
+  cursor: pointer;
+}
+.button-add-favorite {
+  position: absolute;
+  right: 4%;
+  top: 4%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.description-buttonoff {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  /* cursor: pointer; */
+}
+
+.card-caracter {
+  position: relative;
+  max-height: 12vw;
+  width: 10%;
+  border: red solid 2px;
+  box-shadow: -1px -1px rgba(255, 255, 255, 0.622);
+  border-radius: 20px;
+  flex-shrink: 0;
+  background-color: red;
+}
+
+.card-caracter:hover {
+  border: red solid 2px;
+  box-shadow: -3px -3px rgba(255, 255, 255, 0.622);
+  border-radius: 10px;
+}
+
+.card-caracter-title-img > h2 {
+  padding-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20%;
+  color: white;
+  border-radius: 20px;
+}
+
+.caracter-image {
+  position: relative;
+  width: 100%;
+  height: 80%;
+}
+.card-caracter-title-img > div > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 20px;
+  border-radius: 20px;
+}
+
+.button-descr-cara-home {
+  all: unset;
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  width: 90%;
+  height: 20%;
+  color: rgb(23, 4, 4);
+  border: solid 1px darkblue;
+  background-color: white;
+  text-align: center;
+  border-radius: 30px;
+}
+
+.button-descr-cara-home:hover {
+  background-color: rgb(255, 3, 3);
+}
+
+.card-comic-description {
+  background-color: white;
+  padding: 10px;
+  z-index: 2;
+  border-radius: 20px;
+  position: absolute;
+  left: -75%;
+  width: 300%;
+}

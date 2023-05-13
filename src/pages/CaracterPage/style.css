@@ -1,0 +1,48 @@
+.caracter-box {
+  border: solid 2px red;
+  padding: 5% 0;
+  height: fit-content;
+  /* display: flex; */
+  gap: 2vw;
+}
+
+.caracter-information-box {
+  border: solid 2px rgb(187, 255, 0);
+  display: flex;
+  flex-direction: row;
+  height: 30%;
+  width: 100%;
+}
+
+.caracter-information-text {
+  border: solid 2px rgb(208, 0, 255);
+  color: white;
+}
+.caracter-comics-box {
+  border: solid 2px rgb(0, 229, 255);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1vw;
+}
+.each-caracter-comic-box {
+  height: 400px;
+  width: 15%;
+  background-color: white;
+}
+
+.each-caracter-comic-box > h2 {
+  height: 15%;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.each-caracter-comic-box > img {
+  height: 80%;
+  width: 100%;
+  object-fit: cover;
+}

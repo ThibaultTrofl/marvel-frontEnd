@@ -1,0 +1,57 @@
+.header-box > a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.header-box {
+  height: 100%;
+  border-bottom: solid 1px red;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 20px;
+}
+
+.header-box > a > img {
+  height: 50%;
+  border-radius: 5px;
+  margin-right: 30px;
+  flex-grow: 1;
+}
+
+.nav-bar-header {
+  flex-grow: 4;
+  background-color: rgb(255, 255, 255);
+  height: 50%;
+  width: 40%;
+  padding: 0 10px;
+  border: solid red 2px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-bar-header > input {
+  all: unset;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+
+.button-header-box {
+  flex-grow: 3;
+  width: 40%;
+  height: 50%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.button-header-box > button {
+  height: 100%;
+  width: 100px;
+  background-color: red;
+  border: solid 2px rgb(255, 255, 255);
+  border-radius: 10px;
+  color: white;
+}
