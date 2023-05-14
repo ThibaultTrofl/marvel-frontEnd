@@ -22,14 +22,30 @@
   z-index: 2;
   background-color: white;
   border-radius: 20px;
-  height: 300px;
-  width: 550px;
+  height: 400px;
+  width: 650px;
   display: flex;
   align-items: center;
   justify-content: center;
   /* flex-direction: column; */
   padding: 10px;
   gap: 7%;
+}
+
+.modal h1 {
+  font-size: 30px;
+  padding: 0 15px;
+  align-self: flex-start;
+  text-decoration: underline;
+}
+
+.signup,
+.login {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .modal > button {
@@ -43,19 +59,47 @@
   /* gap: 10px; */
 }
 
-.signup > form > button {
+.signup > form > button,
+.login > form > button {
+  all: unset;
+  width: 100%;
+  height: 30px;
+  border: darkblue solid 1px;
+  border-radius: 20px;
   margin: 10px;
+  text-align: center;
+  align-self: flex-end;
 }
 .line-separation {
-  height: 80%;
+  position: fixed;
+  height: 50%;
   width: 2px;
-  background-color: blue;
+  background-color: rgb(255, 0, 0);
 }
 
 .custom-input {
   margin: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+.custom-input > label {
+  font-weight: bolder;
+}
+
+.custom-input > input {
+  all: unset;
+  width: 230px;
+  height: 30px;
+  padding: 0 5px;
+  border-bottom: darkblue solid 2px;
+}
+
+.alert-signup,
+.alert-login {
+  height: 10px;
+  color: red;
+  margin-left: 15px;
 }

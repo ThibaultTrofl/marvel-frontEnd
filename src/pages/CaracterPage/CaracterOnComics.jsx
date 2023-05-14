@@ -11,7 +11,7 @@ const CaracterOnComics = ({ data }) => {
       try {
         console.log("fectchdata " + data);
         const response = await axios.post(
-          `http://localhost:3000/comics/${data}`
+          `https://site--marvel-backend--tq978s5f6htc.code.run/comics/${data}`
         );
         setDataComic(response.data);
         setIsLoading(false);

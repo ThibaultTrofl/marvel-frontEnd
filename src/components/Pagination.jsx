@@ -10,6 +10,7 @@ const Pagination = ({
 }) => {
   //   Nombre de page (nombre de résultat / nombre par page)
   const totalPages = Math.ceil(count / limitResult);
+  setMaxPageLimit(totalPages);
 
   //   Création d'un tableau ou l'on push i jusqu'a la fin du nombre de page
   const pages = [];
@@ -46,7 +47,7 @@ const Pagination = ({
   //     setMaxPageLimit(maxPageLimit - limitResult);
   //     setMinPageLimit(minPageLimit - limitResult);
   //   }
-  // setCurrentPage((prev) => prev - 1);
+  //   setCurrentPage((prev) => prev - 1);
   // };
 
   //   const handlePrevClick = () => {
@@ -57,12 +58,10 @@ const Pagination = ({
   //     setCurrentPage((prev) => prev + 1);
   //   };
 
-  //   let pageIncrementEllipses = null;
-  //   if (pages.length > maxPageLimit) {
-  //     pageIncrementEllipses = (
-  //       <li onClick={console.log(handleNextClick())}>Logo</li>
-  //     );
-  //   }
+  // let pageIncrementEllipses = null;
+  // if (pages.length > maxPageLimit) {
+  //   pageIncrementEllipses = <li onClick={handleNextClick()}>Logo</li>;
+  // }
 
   //   let pageDecrementEllipses = null;
   //   //   if (pages.length > 0) {

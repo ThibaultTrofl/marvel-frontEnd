@@ -26,7 +26,7 @@ const Modal = ({
     event.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:3000/user/signup`,
+        `https://site--marvel-backend--tq978s5f6htc.code.run/user/signup`,
 
         {
           account: {
@@ -41,7 +41,7 @@ const Modal = ({
       } else {
         Cookies.set("marvelToken", response.data.token, { expires: 7 });
         Cookies.set("marvelId", response.data._id, { expires: 7 });
-        console.log(response);
+        console.log(response.data.token);
         setMarvelToken(response.data.token);
         setMarvelId(response.data._id);
         setTimeout(3000);
@@ -97,7 +97,9 @@ const Modal = ({
           >
             X
           </button>
+
           <div className="signup">
+            <h1>Sign up</h1>
             <form onSubmit={handleSignUp}>
               <CustomInput
                 type="string"
@@ -132,7 +134,10 @@ const Modal = ({
             </form>
           </div>
           <div className="line-separation"></div>
+
           <div className="login">
+            {" "}
+            <h1>Login in</h1>
             <form onSubmit={handleLogin}>
               <CustomInput
                 type="email"

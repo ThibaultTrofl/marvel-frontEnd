@@ -1,7 +1,9 @@
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import "./style.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import "./style.css";
 
 const CardCaracter = ({
   data,
@@ -10,48 +12,47 @@ const CardCaracter = ({
   setSignupLogin,
   marvelToken,
   marvelId,
+  favorite,
+  setFavorite,
 }) => {
   const [description, setDescription] = useState(false);
-  const [favorite, setFavorite] = useState(false);
+  const [caracterFavorite, setCaracterFavorite] = useState(false);
 
   useEffect(() => {
-    const fecthDataFavorite = async () => {
-      try {
-        const response = await axios.post(`http://localhost:3000/favorite`, {
-          userId: marvelId,
-        });
-
-        for (let i = 0; i < response.data.length; i++) {
-          if (response.data[i] === data._id) {
-            setFavorite(true);
-          }
-        }
-        //   setFavorite(true);
-        // }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    fecthDataFavorite();
-  }, [favorite]);
+    if (favorite.includes(data._id)) {
+      setCaracterFavorite(true);
+    }
+  }, []);
 
   const handleFavorite = async () => {
     try {
       if (!marvelToken) {
         setSignupLogin(true);
       } else {
-        console.log("oui");
-        console.log(marvelId);
-        console.log(data._id);
+        favorite.indexOf(data._id);
+        const copyFavorite = [...favorite];
+        if (favorite.indexOf(data._id) === -1) {
+          console.log("add");
+          copyFavorite.push(data._id);
+          console.log(copyFavorite);
+          setFavorite(copyFavorite);
+          setCaracterFavorite(true);
+        } else {
+          console.log("remove");
+
+          copyFavorite.splice(favorite.indexOf(data._id), 1);
+          setFavorite(copyFavorite);
+          setCaracterFavorite(false);
+        }
+
         const response = await axios.post(
-          `http://localhost:3000/favorite/add`,
+          `https://site--marvel-backend--tq978s5f6htc.code.run/favorite/caracter`,
           {
             userId: marvelId,
-            favoriteId: data._id,
+            favorite: copyFavorite,
           }
         );
-        console.log(response);
-        setFavorite(!favorite);
+        // console.log(response);
       }
     } catch (error) {
       console.log(error.message);
@@ -79,13 +80,18 @@ const CardCaracter = ({
       >
         <button
           className={
-            favorite ? "button-add-favorite color-red" : "button-add-favorite"
+            caracterFavorite
+              ? "button-add-favorite color-red"
+              : "button-add-favorite"
           }
           onClick={() => {
             handleFavorite();
           }}
         >
-          F
+          <FontAwesomeIcon
+            icon="heart"
+            className={caracterFavorite ? "color-red" : ""}
+          />
         </button>
         <Link
           to={`/caracter/${data._id}`}
@@ -110,14 +116,14 @@ const CardCaracter = ({
           <button
             className="button-descr-cara-home"
             onClick={() => {
-              setDescription(true);
+              setDescription(!description);
               setBlur(!blur);
             }}
           >
             Description
           </button>
         ) : null}
-        {description ? (
+        {description && (
           <div
             className="card-comic-description"
             onClick={() => {
@@ -127,7 +133,7 @@ const CardCaracter = ({
           >
             {data.description}
           </div>
-        ) : null}
+        )}
       </div>
     </>
   );

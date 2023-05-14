@@ -4,8 +4,17 @@ import { useState, useEffect } from "react";
 import CardComic from "./CardComic";
 import Pagination from "../../components/Pagination";
 
-import "./style.css";
-const Comics = ({ fullBlur, setFullBlur }) => {
+// import "./style.css";
+
+const Comics = ({
+  fullBlur,
+  setFullBlur,
+  favorite,
+  setFavorite,
+  marvelId,
+  marvelToken,
+  setSignupLogin,
+}) => {
   const [dataComics, setDataComics] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [blur, setBlur] = useState(false);
@@ -18,7 +27,9 @@ const Comics = ({ fullBlur, setFullBlur }) => {
     const fecthDataComic = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/comics?page=${(currentPage - 1) * limitResult}`
+          `https://site--marvel-backend--tq978s5f6htc.code.run/comics?page=${
+            (currentPage - 1) * limitResult
+          }`
         );
         setDataComics(response.data);
         setIsLoading(false);
@@ -32,41 +43,43 @@ const Comics = ({ fullBlur, setFullBlur }) => {
     <>
       <main className="main-box">
         <div className={fullBlur ? "container blur" : "container"}>
-          <div className="caracter-box">
-            <div className="pagination"></div>
-            {isLoading ? (
-              <p>Loading ...</p>
-            ) : (
-              <div className="caracter-comics-box">
-                {dataComics.results.map((id, index) => {
-                  return (
-                    <CardComic
-                      data={id}
-                      key={index}
-                      blur={blur}
-                      setBlur={setBlur}
-                    />
-                  );
-                })}
-              </div>
-            )}
-          </div>
-          <div className="pagination">
-            {isLoading ? (
-              <p>Loading ...</p>
-            ) : (
-              <Pagination
-                count={dataComics.count}
-                limitResult={limitResult}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                maxPageLimit={maxPageLimit}
-                setMaxPageLimit={setMaxPageLimit}
-                minPageLimit={minPageLimit}
-                setMinPageLimit={setMinPageLimit}
-              />
-            )}
-          </div>
+          {isLoading ? (
+            <p>Loading ...</p>
+          ) : (
+            <div className="comic-box">
+              {dataComics.results.map((id, index) => {
+                return (
+                  <CardComic
+                    data={id}
+                    key={index}
+                    blur={blur}
+                    setBlur={setBlur}
+                    marvelToken={marvelToken}
+                    setSignupLogin={setSignupLogin}
+                    marvelId={marvelId}
+                    favorite={favorite}
+                    setFavorite={setFavorite}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </div>
+        <div className="pagination">
+          {isLoading ? (
+            <p>Loading ...</p>
+          ) : (
+            <Pagination
+              count={dataComics.count}
+              limitResult={limitResult}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              maxPageLimit={maxPageLimit}
+              setMaxPageLimit={setMaxPageLimit}
+              minPageLimit={minPageLimit}
+              setMinPageLimit={setMinPageLimit}
+            />
+          )}
         </div>
       </main>
     </>

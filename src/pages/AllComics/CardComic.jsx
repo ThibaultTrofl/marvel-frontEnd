@@ -1,17 +1,71 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import "./style.css";
+// import "./style.css";
+import axios from "axios";
 
-const CardComic = ({ data, blur, setBlur }) => {
-  const [description, setDescription] = useState(false);
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+const CardComic = ({
+  data,
+  blur,
+  setBlur,
+  setSignupLogin,
+  marvelToken,
+  marvelId,
+  favorite,
+  setFavorite,
+}) => {
+  const [comicDescription, setComicDescription] = useState(false);
+  const [comicFavorite, setComicFavorite] = useState(false);
+
+  useEffect(() => {
+    if (favorite.includes(data._id)) {
+      setComicFavorite(true);
+    }
+  }, []);
+
+  const handleFavorite = async () => {
+    try {
+      if (!marvelToken) {
+        setSignupLogin(true);
+      } else {
+        favorite.indexOf(data._id);
+        const copyFavorite = [...favorite];
+
+        if (favorite.indexOf(data._id) === -1) {
+          console.log("add");
+          copyFavorite.push(data._id);
+          setFavorite(copyFavorite);
+          setComicFavorite(true);
+        } else {
+          console.log("remove");
+
+          copyFavorite.splice(favorite.indexOf(data._id), 1);
+          setFavorite(copyFavorite);
+          setComicFavorite(false);
+        }
+
+        const response = await axios.post(
+          `https://site--marvel-backend--tq978s5f6htc.code.run/favorite/comic`,
+          {
+            userId: marvelId,
+            favorite: copyFavorite,
+          }
+        );
+        // console.log(response);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <>
-      {description && (
+      {comicDescription && (
         <div
           className="description-button"
           onClick={() => {
-            setDescription(false);
+            setComicDescription(false);
             setBlur(false);
           }}
         ></div>
@@ -19,12 +73,27 @@ const CardComic = ({ data, blur, setBlur }) => {
       <div
         className={
           blur
-            ? description
+            ? comicDescription
               ? "card-caracter"
               : "card-caracter blur"
             : "card-caracter"
         }
       >
+        <button
+          className={
+            comicFavorite
+              ? "button-add-favorite color-red"
+              : "button-add-favorite"
+          }
+          onClick={() => {
+            handleFavorite();
+          }}
+        >
+          <FontAwesomeIcon
+            icon="heart"
+            className={comicFavorite ? "color-red" : ""}
+          />
+        </button>
         <Link
           to={`/comic/${data._id}`}
           state={{ data }}
@@ -48,18 +117,18 @@ const CardComic = ({ data, blur, setBlur }) => {
           <button
             className="button-descr-cara-home"
             onClick={() => {
-              setDescription(!description);
+              setComicDescription(!comicDescription);
               setBlur(!blur);
             }}
           >
             Description
           </button>
         ) : null}
-        {description ? (
+        {comicDescription ? (
           <div
             className="card-comic-description"
             onClick={() => {
-              setDescription(false);
+              setComicDescription(false);
               setBlur(false);
             }}
           >

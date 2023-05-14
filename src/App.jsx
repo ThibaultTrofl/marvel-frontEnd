@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Cookies from "js-cookie";
 
 // ---------Import Components--------
@@ -9,12 +10,13 @@ import Home from "./pages/AllCaracters/index.jsx";
 import Caracter from "./pages/CaracterPage/index.jsx";
 import Comics from "./pages/AllComics/index.jsx";
 import ComicPage from "./pages/ComicPage";
+import Favorite from "./pages/Favorite";
 
 // ---------FontAwesome--------
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faHeart } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faMagnifyingGlass);
+library.add(faMagnifyingGlass, faHeart);
 
 function App() {
   const [marvelToken, setMarvelToken] = useState(
@@ -24,6 +26,36 @@ function App() {
   const [search, setSearch] = useState("");
   const [signupLogin, setSignupLogin] = useState(false);
   const [fullBlur, setFullBlur] = useState(false);
+  const [caracterFavorite, setCaracterFavorite] = useState([]);
+  const [comicFavorite, setComicFavorite] = useState([]);
+
+  useEffect(() => {
+    if (marvelId) {
+      const fecthDataFavorite = async () => {
+        try {
+          const responseCaracters = await axios.post(
+            `https://site--marvel-backend--tq978s5f6htc.code.run/favorite/get/caracters`,
+            {
+              userId: marvelId,
+            }
+          );
+          // console.log(response.data);
+          setCaracterFavorite(responseCaracters.data);
+          const responseComics = await axios.post(
+            `https://site--marvel-backend--tq978s5f6htc.code.run/favorite/get/comics`,
+            {
+              userId: marvelId,
+            }
+          );
+          // console.log(response.data);
+          setComicFavorite(responseComics.data);
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+      fecthDataFavorite();
+    }
+  }, [marvelId]);
 
   return (
     <Router>
@@ -50,6 +82,8 @@ function App() {
               marvelToken={marvelToken}
               setSignupLogin={setSignupLogin}
               marvelId={marvelId}
+              favorite={caracterFavorite}
+              setFavorite={setCaracterFavorite}
             />
           }
         />
@@ -61,18 +95,48 @@ function App() {
               setFullBlur={setFullBlur}
               marvelToken={marvelToken}
               setSignupLogin={setSignupLogin}
+              favorite={caracterFavorite}
+              setFavorite={setCaracterFavorite}
             />
           }
         />
         <Route
           path="/comics"
-          element={<Comics fullBlur={fullBlur} setFullBlur={setFullBlur} />}
+          element={
+            <Comics
+              fullBlur={fullBlur}
+              setFullBlur={setFullBlur}
+              favorite={comicFavorite}
+              setFavorite={setComicFavorite}
+              marvelToken={marvelToken}
+              marvelId={marvelId}
+            />
+          }
         />
         <Route
           path="/comic/:id"
-          element={<ComicPage fullBlur={fullBlur} setFullBlur={setFullBlur} />}
+          element={
+            <ComicPage
+              fullBlur={fullBlur}
+              setFullBlur={setFullBlur}
+              favorite={comicFavorite}
+              setFavorite={setComicFavorite}
+              marvelToken={marvelToken}
+              marvelId={marvelId}
+            />
+          }
         />
-        <Route path="/favoris" element={<p>"Homepage favoris"</p>} />
+        <Route
+          path="/favoris"
+          element={
+            <Favorite
+              comicFavorite={comicFavorite}
+              setComicFavorite={setComicFavorite}
+              caracterFavorite={caracterFavorite}
+              setCaracterFavorite={setCaracterFavorite}
+            />
+          }
+        />
       </Routes>
     </Router>
   );

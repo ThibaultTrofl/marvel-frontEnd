@@ -34,7 +34,7 @@ const Header = ({
             <label htmlFor="input-nav-bar-header" className="nav-bar-header">
               <FontAwesomeIcon icon="magnifying-glass" />
               <input
-                placeholder="Rechercher vos héros préférés"
+                placeholder="Find your favorite heroes"
                 id="input-nav-bar-header"
                 onChange={(event) => {
                   setSearch(event.target.value);
@@ -48,7 +48,7 @@ const Header = ({
                   navigate("/");
                 }}
               >
-                Personnages
+                Characters
               </button>
               <button
                 onClick={() => {
@@ -62,7 +62,7 @@ const Header = ({
                   navigate("/favoris");
                 }}
               >
-                Favoris
+                Favorites
               </button>
               {!marvelToken ? (
                 <button
@@ -73,7 +73,7 @@ const Header = ({
                     setSignupLogin(!signupLogin);
                   }}
                 >
-                  S'inscrir Se connecter
+                  Sign Up|Login
                 </button>
               ) : (
                 <button

@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 
 import CaracterOnComics from "./CaracterOnComics.jsx";
 
-import "./style.css";
+// import "./style.css";
 
 const Caracter = () => {
   const location = useLocation();

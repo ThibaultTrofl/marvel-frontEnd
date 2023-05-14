@@ -3,8 +3,16 @@ import { useEffect, useState } from "react";
 import CardCaracter from "./CardCaracter";
 import Pagination from "../../components/Pagination";
 
-import "./style.css";
-const Home = ({ search, fullBlur, marvelToken, setSignupLogin, marvelId }) => {
+// import "./style.css";
+const Home = ({
+  search,
+  fullBlur,
+  marvelToken,
+  setSignupLogin,
+  marvelId,
+  favorite,
+  setFavorite,
+}) => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [blur, setBlur] = useState(false);
@@ -17,7 +25,7 @@ const Home = ({ search, fullBlur, marvelToken, setSignupLogin, marvelId }) => {
     const fecthDataCaracter = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/caracter?name=${search}&page=${
+          `https://site--marvel-backend--tq978s5f6htc.code.run/caracter?name=${search}&page=${
             (currentPage - 1) * limitResult
           }`
         );
@@ -34,7 +42,6 @@ const Home = ({ search, fullBlur, marvelToken, setSignupLogin, marvelId }) => {
       <main className="main-box">
         <div className={fullBlur ? "container blur" : "container"}>
           <div className="caracter-box">
-            <div className="pagination"></div>
             {isLoading ? (
               <p>Loading ...</p>
             ) : (
@@ -48,6 +55,8 @@ const Home = ({ search, fullBlur, marvelToken, setSignupLogin, marvelId }) => {
                     marvelToken={marvelToken}
                     setSignupLogin={setSignupLogin}
                     marvelId={marvelId}
+                    favorite={favorite}
+                    setFavorite={setFavorite}
                   />
                 );
               })
